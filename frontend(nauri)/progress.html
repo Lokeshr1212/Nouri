@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+  <head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Progress — Nouri</title><link rel="stylesheet" href="styles.css" /></head>
+  <body class="app-page" data-progress>
+    <div class="app-shell">
+      <aside class="sidebar"><a class="brand" href="index.html"><span class="brand-mark">✦</span>Nouri</a><nav class="main-nav" aria-label="App navigation"><a class="nav-item" href="dashboard.html"><span class="nav-icon">▦</span>Overview</a><a class="nav-item" href="calorie-counter.html"><span class="nav-icon">♨</span>Calorie counter</a><a class="nav-item" href="calendar.html"><span class="nav-icon">▣</span>Calendar</a><a class="nav-item" href="diet-planner.html"><span class="nav-icon">☷</span>Diet planner</a><a class="nav-item active" href="progress.html"><span class="nav-icon">↗</span>Progress</a></nav><div class="sidebar-bottom"><div class="upgrade"><b>Unlock deeper insights</b><span>See patterns and plan with more precision.</span></div><div class="profile"><span class="profile-avatar">AR</span><div><b>Guest</b><span>free plan</span></div></div><a class="link-button" data-logout href="#" style="justify-content:center;display:flex;font-size:.78rem">Log out</a></div></aside>
+      <main class="app-main"><header class="app-header"><div class="date-block"><p>Your progress</p><h1>Quiet, steady momentum.</h1></div><div class="header-actions"><a class="button ghost" href="diet-planner.html">View plan</a><button class="header-icon" aria-label="Notifications">♧</button></div></header>
+        <section class="progress-grid">
+          <div class="panel metric"><small>Current weight</small><b data-current-weight>—</b><span data-weight-change>Log weight to track</span><form data-add-weight-form style="display:flex;gap:8px;margin-top:13px"><input name="weight" type="number" step="0.1" min="20" max="500" placeholder="kg" aria-label="Weight in kg" style="width:74px" /><button class="button" type="submit" style="min-height:38px;padding:0 14px">Log</button></form></div>
+          <div class="panel metric"><small>Daily average</small><b data-daily-average>—</b><span data-avg-note>Across your last 7 days</span></div>
+          <div class="panel metric"><small>Habit streak</small><b data-habit-streak>—</b><span data-personal-best></span></div>
+        </section>
+        <div class="dashboard-grid">
+          <section class="panel progress-chart"><div class="panel-title"><div><p class="eyebrow">Weight trend</p><h2 style="margin-top:6px">Small shifts add up</h2></div><span style="color:var(--muted);font-size:.72rem">Last 8 weeks</span></div><svg class="line-chart" viewBox="0 0 650 235" preserveAspectRatio="none" aria-label="Weight trend chart" data-weight-chart></svg><div class="chart-axis" data-chart-axis></div></section>
+          <section class="panel panel-pad"><div class="panel-title"><h2>Habit rhythm</h2></div><div class="habit-grid" data-habit-grid></div></section>
+        </div>
+      </main>
+    </div>
+    <script src="api.js"></script><script src="app.js"></script>
+  </body>
+</html>

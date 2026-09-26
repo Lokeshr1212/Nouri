@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Overview — Nouri</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="app-page">
+    <div class="app-shell">
+      <aside class="sidebar">
+        <a class="brand" href="index.html"><span class="brand-mark">✦</span>Nouri</a>
+        <nav class="main-nav" aria-label="App navigation">
+          <a class="nav-item active" href="dashboard.html"><span class="nav-icon">▦</span>Overview</a>
+          <a class="nav-item" href="calorie-counter.html"><span class="nav-icon">♨</span>Calorie counter</a>
+          <a class="nav-item" href="calendar.html"><span class="nav-icon">▣</span>Calendar</a>
+          <a class="nav-item" href="diet-planner.html"><span class="nav-icon">☷</span>Diet planner</a>
+          <a class="nav-item" href="progress.html"><span class="nav-icon">↗</span>Progress</a>
+        </nav>
+        <div class="sidebar-bottom"><div class="upgrade"><b>Unlock deeper insights</b><span>See patterns and plan with more precision.</span></div><div class="profile"><span class="profile-avatar">AR</span><div><b>Guest</b><span>free plan</span></div></div><a class="link-button" data-logout href="#" style="justify-content:center;display:flex;font-size:.78rem">Log out</a></div>
+      </aside>
+      <main class="app-main">
+        <header class="app-header"><div class="date-block"><p data-greeting-date>Loading…</p><h1 data-greeting>Welcome.</h1></div><div class="header-actions"><a class="button ghost" href="calorie-counter.html">+ Log meal</a><button class="header-icon" aria-label="Notifications">♧</button></div></header>
+        <div class="dashboard-grid" data-dashboard>
+          <section class="daily"><p class="eyebrow">Today’s fuel</p><h2>Small choices, beautiful momentum.</h2><div class="meter"><div class="ring" data-calorie-ring><div><b data-calorie-consumed>0</b><span data-calorie-text>of 0</span></div></div><div class="meter-copy"><b data-cal-remaining>Loading…</b><span data-energy-note></span></div></div><div class="macro-row"><div class="macro" data-macro="protein"><small>Protein</small><b>0g / 0g</b><div class="bar"><i style="width:0%"></i></div></div><div class="macro" data-macro="carbs"><small>Carbs</small><b>0g / 0g</b><div class="bar"><i style="width:0%"></i></div></div><div class="macro" data-macro="fats"><small>Fats</small><b>0g / 0g</b><div class="bar"><i style="width:0%"></i></div></div></div></section>
+          <section class="panel panel-pad"><div class="panel-title"><h2>Today’s meals</h2><a class="link-button" href="calorie-counter.html">Log meal</a></div><div class="meal-list" data-today-meals></div></section>
+          <section class="panel weekly"><div class="panel-title"><h2>Your energy this week</h2><a class="link-button" href="progress.html">View progress</a></div><div class="chart-bars" data-weekly-chart></div></section>
+          <section class="panel panel-pad"><div class="panel-title"><h2>Next up</h2><a class="link-button" href="diet-planner.html">Plan week</a></div><div class="meal-list" data-next-up></div></section>
+        </div>
+      </main>
+    </div>
+    <script src="api.js"></script><script src="app.js"></script>
+  </body>
+</html>

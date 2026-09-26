@@ -1,0 +1,178 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                 String   @id @default(cuid())
+  name               String
+  email              String   @unique
+  passwordHash       String
+  googleId           String?  @unique
+  plan               String   @default("free")
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  nutritionProfile    NutritionProfile?
+  foodLogs            FoodLog[]
+  meals               Meal[]
+  dietPlans           DietPlan[]
+  weightEntries       WeightEntry[]
+  habits              Habit[]
+  groceryItems        GroceryItem[]
+  hydrationEntries    HydrationEntry[]
+  refreshTokens       RefreshToken[]
+  passwordResetTokens PasswordResetToken[]
+}
+
+model NutritionProfile {
+  id                   String   @id @default(cuid())
+  user                 User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId               String   @unique
+  age                  Int?
+  gender               String?
+  heightCm             Float?
+  currentWeightKg      Float?
+  targetWeightKg       Float?
+  activityLevel        String?
+  calorieGoal          Int?
+  proteinGoal          Int?
+  carbGoal             Int?
+  fatGoal              Int?
+  hydrationGoalGlasses Int      @default(8)
+  dietaryPreferences   String[] @default([])
+  allergies            String[] @default([])
+  updatedAt            DateTime @updatedAt
+}
+
+model FoodLog {
+  id          String   @id @default(cuid())
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String
+  foodName    String
+  mealType    String   @default("snack")
+  calories    Int
+  protein     Float?
+  carbs       Float?
+  fats        Float?
+  servingSize String?
+  source      String   @default("manual")
+  loggedAt    DateTime @db.Date
+  createdAt   DateTime @default(now())
+
+  @@index([userId, loggedAt])
+}
+
+model Meal {
+  id            String   @id @default(cuid())
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId        String
+  name          String
+  description   String?
+  mealType      String   @default("breakfast")
+  calories      Int      @default(0)
+  protein       Float?
+  carbs         Float?
+  fats          Float?
+  scheduledDate DateTime @db.Date
+  scheduledTime String?
+  dietPlanId    String?
+  dietPlan      DietPlan? @relation(fields: [dietPlanId], references: [id], onDelete: SetNull)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([userId, scheduledDate])
+}
+
+model DietPlan {
+  id                 String   @id @default(cuid())
+  user               User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId             String
+  startDate          DateTime @db.Date
+  endDate            DateTime @db.Date
+  dailyCalorieTarget Int
+  proteinTarget      Int
+  plantVarietyTarget Int      @default(30)
+  notes              String?
+  meals              Meal[]
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  @@index([userId, startDate, endDate])
+}
+
+model WeightEntry {
+  id         String   @id @default(cuid())
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     String
+  weight     Float
+  recordedAt DateTime @db.Date
+  createdAt  DateTime @default(now())
+
+  @@index([userId, recordedAt])
+}
+
+model Habit {
+  id        String   @id @default(cuid())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  habitName String
+  date      DateTime @db.Date
+  completed Boolean  @default(true)
+
+  @@unique([userId, habitName, date])
+  @@index([userId, date])
+}
+
+model GroceryItem {
+  id        String   @id @default(cuid())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  itemName  String
+  completed Boolean  @default(false)
+  date      DateTime @db.Date
+  createdAt DateTime @default(now())
+
+  @@index([userId, date])
+}
+
+model HydrationEntry {
+  id            String   @id @default(cuid())
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId        String
+  date          DateTime @db.Date
+  amountGlasses Float    @default(1)
+  amountMl      Int?
+  createdAt     DateTime @default(now())
+
+  @@unique([userId, date])
+}
+
+model RefreshToken {
+  id        String    @id @default(cuid())
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  tokenHash String    @unique
+  expiresAt DateTime
+  revokedAt DateTime?
+  userAgent String?
+  createdAt DateTime  @default(now())
+
+  @@index([userId])
+}
+
+model PasswordResetToken {
+  id        String    @id @default(cuid())
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  tokenHash String    @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  @@index([userId])
+}
